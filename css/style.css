@@ -1,18 +1,27 @@
-/* RESET */
+
 * {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
-  font-family: 'Product Sans'
 }
 
-/* GLOBAL */
+@font-face {
+    font-family: "ProductSans-Regular";
+    src: url("../fonts/ProductSans-Regular.ttf") format("truetype");
+    font-weight: normal;
+    font-style: normal;
+}
 body {
   line-height: 1.6;
   color: #111;
+  font-family: "ProductSans-Regular";
+  background: linear-gradient(90deg, #ffffff, #91a6ad,#dbdbdb,#a491ad);
+  animation: gradientMove 40s ease infinite;
+  background-size: 400% 400%;
+  height: 100vh;
+  margin: 0;
 }
 
-/* NAVBAR */
 .navbar {
   display: flex;
   justify-content: space-between;
@@ -51,7 +60,6 @@ body {
 }
 
 
-/* HERO */
 .hero {
     min-height: 300px;
     display: flex;
@@ -61,14 +69,12 @@ body {
     height: 100px;
 }
 
-/* SECTIONS */
 .section {
   padding: 4rem 2rem;
   max-width: 1000px;
   margin: auto;
 }
 
-/* PROJECTS */
 .projects-grid {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
@@ -78,7 +84,7 @@ body {
 
 .card {
   padding: 2rem;
-  border: 1px solid #ddd;
+  border: 1px solid #4b4b4b;
   border-radius: 8px;
   transition: transform 1s;
 }
@@ -98,7 +104,7 @@ body {
   transform-origin: right center;
 }
 
-/* CONTACT */
+
 #emailBtn {
   padding: 0.75rem 1.5rem;
   cursor: pointer;
@@ -126,7 +132,7 @@ body {
   width: 160px;
   height: 160px;
   border-radius: 50%;
-  padding: 5px; /* thickness of gradient ring */
+  padding: 5px; 
   background: linear-gradient(270deg, #ff7a18, #ffb347, #ff1818);
   background-size: 400% 400%;
   animation: gradientMove 8s linear infinite;
@@ -140,7 +146,7 @@ body {
   color: white
 }
 .name-grad {
-    background: linear-gradient(270deg, #d6d6d6, #bb95ee, #72ffff);
+    background: linear-gradient(270deg, #d6d6d6, #ee9595, #72ffff);
     animation: gradientMove 10s ease infinite;
     font-weight: 800;
     background-size: 400% 400%; 
@@ -164,7 +170,7 @@ body {
   border-radius: 50%;
   display: block;
   object-fit: cover;
-  border: 4px solid white; /* optional separation from gradient ring */
+  border: 4px solid white;
 }
 
 .akv-text {
@@ -189,7 +195,7 @@ body {
 }
 
 #about h2, #projects h2, #contact h2, #skills h2{
-    background: linear-gradient(270deg, #d35a5a, #1c1b1f, #179999);
+    background: linear-gradient(270deg, #000000, #001aff, #440f80);
     animation: gradientMove 10s ease infinite;
     font-weight: 800;
     background-size: 400% 400%; 
@@ -255,4 +261,102 @@ svg:hover {
 .contactlink {
   text-decoration: none;
   color: #000000;
+}
+.photo-grid {
+    /*display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));*/
+    gap: 10px;
+    display: flex;
+    flex-wrap: wrap;
+}
+.row {
+    overflow: hidden;
+    white-space: nowrap;
+}
+
+.track {
+    display: flex;
+    gap: 10px;
+    width: max-content;
+}
+
+.row img {
+    height: 300px;
+    width: auto;
+    object-fit: cover;
+}
+.photo-grid img {
+    /*width: 100%;
+    height: 200px;
+    object-fit: cover;
+    height: 200px;
+    flex-grow: 1;
+    object-fit: cover;*/
+    transition: transform 0.3s;
+}
+#overlay {
+    display: none;               
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0,0,0,0.8);
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+}
+
+#overlay img {
+    max-width: 90%;
+    max-height: 90%;
+    box-shadow: 0 0 20px #000;
+    transition: transform 0.3s ease;
+    animation: zoomIn 0.3s forwards;
+    transform: scale(0);
+}
+
+#close {
+    position: absolute;
+    top: 20px;
+    right: 30px;
+    color: white;
+    font-size: 40px;
+    cursor: pointer;
+}
+@keyframes scroll-left {
+    from { transform: translateX(0); }
+    to { transform: translateX(-50%); }
+}
+
+@keyframes scroll-right {
+    from { transform: translateX(-50%); }
+    to { transform: translateX(0); }
+}
+@keyframes zoomIn {
+    to { transform: scale(1); }
+}
+.row.odd .track {
+    animation: scroll-right 60s linear infinite;
+}
+
+.row.even .track {
+    animation: scroll-left 60s linear infinite;
+}
+#lightbox {
+    display: none;
+    position: fixed;
+    inset: 0;
+    background: rgba(0,0,0,0.9);
+    justify-content: center;
+    align-items: center;
+    overflow: hidden;
+    z-index: 1000;
+}
+
+#lightbox img {
+    max-width: 90%;
+    max-height: 90%;
+    transition: transform 0.1s ease;
+    cursor: grab;
 }

@@ -73,3 +73,82 @@ const observer = new IntersectionObserver((entries) => {
 });
 
 boxes.forEach(box => observer.observe(box));
+
+const images = document.querySelectorAll(".expandable");
+const overlay = document.getElementById("overlay");
+const overlayImg = document.getElementById("overlay-img");
+const closeBtn = document.getElementById("close");
+
+images.forEach(img => {
+    img.addEventListener("click", () => {
+        overlay.style.display = "flex";
+        overlayImg.src = img.src;
+    });
+});
+
+closeBtn.addEventListener("click", () => {
+    overlay.style.display = "none";
+});
+
+overlay.addEventListener("click", (e) => {
+    if(e.target === overlay) overlay.style.display = "none";
+});
+
+const lightbox = document.getElementById("lightbox");
+const lightboxImg = document.getElementById("lightbox-img");
+
+let scale = 1;
+let isDragging = false;
+let startX, startY, translateX = 0, translateY = 0;
+
+images.forEach(img => {
+    img.addEventListener("click", () => {
+        lightbox.style.display = "flex";
+        lightboxImg.src = img.src;
+        resetZoom();
+    });
+});
+
+lightbox.addEventListener("click", (e) => {
+    if (e.target === lightbox) lightbox.style.display = "none";
+});
+
+
+lightboxImg.addEventListener("wheel", (e) => {
+    e.preventDefault();
+    scale += e.deltaY * -0.001;
+    scale = Math.min(Math.max(1, scale), 5);
+    updateTransform();
+});
+
+
+lightboxImg.addEventListener("mousedown", (e) => {
+    isDragging = true;
+    startX = e.clientX - translateX;
+    startY = e.clientY - translateY;
+    lightboxImg.style.cursor = "grabbing";
+});
+
+window.addEventListener("mouseup", () => {
+    isDragging = false;
+    lightboxImg.style.cursor = "grab";
+});
+
+window.addEventListener("mousemove", (e) => {
+    if (!isDragging) return;
+    translateX = e.clientX - startX;
+    translateY = e.clientY - startY;
+    updateTransform();
+});
+
+function updateTransform() {
+    lightboxImg.style.transform =
+        `translate(${translateX}px, ${translateY}px) scale(${scale})`;
+}
+
+function resetZoom() {
+    scale = 1;
+    translateX = 0;
+    translateY = 0;
+    updateTransform();
+}
