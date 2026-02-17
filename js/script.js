@@ -152,3 +152,4 @@ function resetZoom() {
     translateY = 0;
     updateTransform();
 }
+img.onload = () => img.classList.add("lazy-loaded");

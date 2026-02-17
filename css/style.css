@@ -15,11 +15,7 @@ body {
   line-height: 1.6;
   color: #111;
   font-family: "ProductSans-Regular";
-  background: linear-gradient(90deg, #ffffff, #91a6ad,#dbdbdb,#a491ad);
-  animation: gradientMove 40s ease infinite;
-  background-size: 400% 400%;
-  height: 100vh;
-  margin: 0;
+  background: linear-gradient(90deg, #ffffff, #eeeeee,#ffffff);
 }
 
 .navbar {
@@ -359,4 +355,12 @@ svg:hover {
     max-height: 90%;
     transition: transform 0.1s ease;
     cursor: grab;
+}
+.lazy {
+    opacity: 0;
+    transition: opacity 0.5s ease-in;
+}
+
+.lazy-loaded {
+    opacity: 1;
 }
